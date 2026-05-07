@@ -194,7 +194,7 @@ export default function UploadPage({ processFile, status, dragging, setDragging,
 
       {/* Footer */}
       <div className="landing-footer-new">
-        <span>© 2024 Kochi Metro Rail Limited. All rights reserved.</span>
+        <span>© Kochi Metro Rail Limited. All rights reserved.</span>
       </div>
 
     </div>
