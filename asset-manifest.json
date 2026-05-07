@@ -1,17 +1,15 @@
 {
   "files": {
     "main.css": "/QR-CREATOR/static/css/main.8596987f.css",
-    "main.js": "/QR-CREATOR/static/js/main.f5266af7.js",
-    "static/js/453.901479f1.chunk.js": "/QR-CREATOR/static/js/453.901479f1.chunk.js",
-    "static/media/PROMOCODE_TEMPLATE.png": "/QR-CREATOR/static/media/PROMOCODE_TEMPLATE.9d956142b7ccadfaeaf1.png",
+    "main.js": "/QR-CREATOR/static/js/main.bdd7f599.js",
+    "static/media/PROMOCODE_TEMPLATE.png": "/QR-CREATOR/static/media/PROMOCODE_TEMPLATE.0a4758b80ddc74ea2499.png",
     "static/media/landing.png": "/QR-CREATOR/static/media/landing.0ddaf1a317a96acc2df0.png",
     "index.html": "/QR-CREATOR/index.html",
     "main.8596987f.css.map": "/QR-CREATOR/static/css/main.8596987f.css.map",
-    "main.f5266af7.js.map": "/QR-CREATOR/static/js/main.f5266af7.js.map",
-    "453.901479f1.chunk.js.map": "/QR-CREATOR/static/js/453.901479f1.chunk.js.map"
+    "main.bdd7f599.js.map": "/QR-CREATOR/static/js/main.bdd7f599.js.map"
   },
   "entrypoints": [
     "static/css/main.8596987f.css",
-    "static/js/main.f5266af7.js"
+    "static/js/main.bdd7f599.js"
   ]
 }
