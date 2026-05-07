@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import LandingBG from '../landing.png';
 import { IconUpload } from '../components/Icons';
 import KmrlLogo from '../KMRL-logo.png';
@@ -97,9 +97,59 @@ const downloadTemplate = async () => {
   URL.revokeObjectURL(url);
 };
 
+const HOW_STEPS = [
+  {
+    icon: IcoCloud,
+    num: '1',
+    label: 'Upload File',
+    desc: 'Upload your file containing promotional codes.',
+  },
+  {
+    icon: IcoDocument,
+    num: '2',
+    label: 'Review & Generate',
+    desc: 'Review the parsed data and generate cards.',
+  },
+  {
+    icon: IcoDownload,
+    num: '3',
+    label: 'Download Cards',
+    desc: 'Download individual cards or the entire batch.',
+  },
+];
+
 export default function UploadPage({ processFile, status, dragging, setDragging, fileInputRef, entriesReady, fileName, entryCount, onProceed, onReset }) {
   const handleFile = e => { processFile(e.target.files?.[0]); e.target.value = ''; };
   const handleDrop = e => { e.preventDefault(); setDragging(false); processFile(e.dataTransfer.files?.[0]); };
+
+  const [showHow, setShowHow] = useState(false);
+  const howRef = useRef(null);
+  const dismissTimer = useRef(null);
+
+  const dismiss = () => setShowHow(false);
+
+  // Scroll to section after it renders
+  useEffect(() => {
+    if (showHow) {
+      const scrollTimer = setTimeout(() => {
+        howRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+      // Attach dismiss listeners after a brief grace period so the section can be seen
+      dismissTimer.current = setTimeout(() => {
+        window.addEventListener('mousemove', dismiss);
+        window.addEventListener('keydown', dismiss);
+      }, 400);
+      return () => {
+        clearTimeout(scrollTimer);
+        clearTimeout(dismissTimer.current);
+      };
+    } else {
+      window.removeEventListener('mousemove', dismiss);
+      window.removeEventListener('keydown', dismiss);
+    }
+  }, [showHow]);
+
+  const handleHowClick = () => setShowHow(true);
 
   return (
     <div className="landing-new" style={{ backgroundImage: `url(${LandingBG})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
@@ -109,10 +159,10 @@ export default function UploadPage({ processFile, status, dragging, setDragging,
         <div className="landing-logo">
           <img src={KmrlLogo} alt="Kochi Metro" />
         </div>
-        <a href="#how-it-works" className="how-link">
+        <span className="how-link" onClick={handleHowClick}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           How it works?
-        </a>
+        </span>
       </div>
 
       <div className="landing-container">
@@ -191,6 +241,32 @@ export default function UploadPage({ processFile, status, dragging, setDragging,
           )}
         </div>
       </div>
+
+      {/* How it works section */}
+      {showHow && (
+        <div ref={howRef} className="how-section">
+          <h2 className="how-section-title">How it works</h2>
+          <div className="how-steps-row">
+            {HOW_STEPS.map((step, i) => (
+              <React.Fragment key={step.num}>
+                <div className="how-step-item">
+                  <div className="how-step-icon-wrap">
+                    <step.icon />
+                    <span className="how-step-badge">{step.num}</span>
+                  </div>
+                  <div className="how-step-label">{step.label}</div>
+                  <div className="how-step-desc">{step.desc}</div>
+                </div>
+                {i < HOW_STEPS.length - 1 && (
+                  <div className="how-step-connector">
+                    <IcoArrow />
+                  </div>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <div className="landing-footer-new">
